@@ -2,6 +2,8 @@ import pygame
 from ui.textbox import TextBox
 from chapters.chapter1_data import LESSON_PAGES
 from chapters.chapter1_quiz import QUIZ_QUESTIONS
+from chapters.chapter2_data import LESSON_PAGES as CHAPTER2_PAGES
+from chapters.chapter2_quiz import QUIZ_QUESTIONS as CHAPTER2_QUIZ
 
 pygame.init()
 
@@ -31,6 +33,14 @@ start_button = pygame.Rect(300, 250, 200, 60)
 next_button = pygame.Rect(320, 500, 160, 50)
 
 submit_button = pygame.Rect(320, 450, 160, 50)
+
+continue_button = pygame.Rect(
+    300,
+    450,
+    200,
+    60
+)
+
 
 # ======================
 # TEXTBOX
@@ -126,7 +136,12 @@ while running:
                         if quiz_index >= len(QUIZ_QUESTIONS):
 
                             current_screen = "success"
+                            
+            elif current_screen == "success":
 
+                if continue_button.collidepoint(event.pos):
+
+                    current_screen = "chapter2"
     # ======================
     # DRAW
     # ======================
@@ -308,6 +323,22 @@ while running:
         screen.blit(
             chapter,
             (220, 350)
+        )
+        pygame.draw.rect(
+            screen,
+            (0, 150, 255),
+            continue_button
+        )
+
+        continue_text = text_font.render(
+            "Chapter 2",
+            True,
+            (255, 255, 255)
+        )
+
+        screen.blit(
+            continue_text,
+            (330, 465)
         )
 
     pygame.display.update()
